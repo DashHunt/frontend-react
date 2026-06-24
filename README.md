@@ -1,4 +1,4 @@
-# Backend Node Portfolio
+# Frontend-React Node Portfolio
 
 A collection of frontend/SPA applications built with React.js and TypeScript, showcasing software architecture, design, UI/UX, and modern frontend development practices.
 
