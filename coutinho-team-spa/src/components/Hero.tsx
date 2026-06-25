@@ -1,93 +1,80 @@
-import React from "react";
+import { ButtonLink } from './ui/Button';
+import skullAthlete from '../assets/skull-athlete-rock.png';
+import logoskull from '../assets/logo-skull-front.png';
 
-// Troque pelos caminhos reais das suas imagens
-import skeletonImg from "../assets/skull-athlete-rock.png";
-import skullBgImg from "../assets/logo-skull-front.png";
+const STATS = [
+  { value: '+00', label: 'Medalhas conquistadas' },
+  { value: '+00', label: 'Atletas em acompanhamento' },
+  { value: '+0',  label: 'Treinadores especializados' },
+] as const;
 
-const stats = [
-  { value: "+00", label: "MEDALHAS CONQUISTADAS" },
-  { value: "+00", label: "ATLETAS EM ACOMPANHAMENTO" },
-  { value: "+0", label: "TREINADORES ESPECIALIZADOS" },
-];
-
-const Hero = () => {
+export default function Hero() {
   return (
-    <section className="relative overflow-hidden bg-black">
-      {/* Container: limita a largura e centraliza o conteúdo na tela */}
-      <div className="mx-auto grid max-w-7xl grid-cols-1 items-center px-6 py-20 md:grid-cols-2 md:px-12">
-        {/* ============ COLUNA ESQUERDA: TEXTO ============ */}
-        <div className="relative">
-          {/* Tag pequena no topo */}
-          <p className="text-sm font-bold text-[#ff5a2e] uppercase text-start">
-            Powerlifting · Força · Competição
+    <section id="topo" className="relative py-[70px] pb-[90px] overflow-hidden border-b border-bone/12">
+      {/* Background skull watermark */}
+      <div
+        className="absolute top-[-10%] right-[-10%] w-[60%] max-w-[700px] opacity-[0.06] pointer-events-none select-none z-0"
+        aria-hidden="true"
+      >
+        <img className='hidden md:inline-flex'src={logoskull} alt="" />
+      </div>
+
+      <div className="relative z-10 max-w-[1180px] mx-auto px-6 grid grid-cols-1 md:grid-cols-[1.1fr_0.9fr] gap-[50px] items-center">
+        {/* Copy */}
+        <div>
+          <p className="font-body text-[13px] font-bold uppercase tracking-[2.5px] text-ember mb-3">
+            Powerlifting &middot; Força &middot; Competição
           </p>
 
-          {/* Título grande, 3 linhas, com a palavra "CAMPEÕES" destacada */}
-          <h1 className="hero-title">
-            TREINE COM QUEM CONSTROI <span className="text-[#ff5a2e] text-extrabold">CAMPEÕES</span>{" "}
-            DE VERDADE.
+          <h1 className="font-display text-[clamp(34px,5.2vw,58px)] leading-[1.08] mb-[22px] font-extrabold">
+            Treine com quem constrói{' '}
+            <span className="text-ember">campeões</span> de verdade.
           </h1>
 
-          {/* Parágrafo descritivo */}
-          <p className="max-w-lg text-start text-gray-300">
-            O Coutinho Team é uma equipe de Powerlifting feita para quem quer evoluir com{" "}
-            <strong className="text-white">método, técnica e acompanhamento de perto</strong> — do
+          <p className="text-[17px] text-cream/80 max-w-[520px] mb-8">
+            O Coutinho Team é uma equipe de Powerlifting feita para quem quer evoluir com{' '}
+            <strong className="text-cream">método, técnica e acompanhamento de perto</strong> — do
             primeiro treino ao pódio.
           </p>
 
-          {/* Botões: laranja sólido + outline */}
-          <div className="mt-8 flex flex-wrap gap-4">
-            <a
-              href="#planos"
-              className="inline-flex items-center justify-center rounded-md bg-[#ff5a2e] px-7 py-3 text-sm font-extrabold tracking-wide text-[#160a05] uppercase transition-transform hover:-translate-y-0.5"
-            >
+          <div className="flex flex-wrap gap-4 mb-[50px]">
+            <ButtonLink href="#planos" variant="ember" size="lg">
               Quero entrar para o time
-            </a>
-            <a
-              href="#equipe"
-              className="inline-flex items-center justify-center rounded-md border-2 border-white/20 px-7 py-3 text-sm font-extrabold tracking-wide text-white uppercase transition-colors hover:bg-white/5"
-            >
+            </ButtonLink>
+            <ButtonLink href="#sobre" variant="ghost" size="lg" className='border-solid border-white'>
               Conhecer a equipe
-            </a>
+            </ButtonLink>
           </div>
 
-          {/* Estatísticas: número grande + label pequeno, repetido 3x */}
-          <div className="mt-12 flex flex-wrap gap-10">
-            {stats.map((stat) => (
-              <div key={stat.label}>
-                <p className="font-['Anton','Archivo_Black',sans-serif] text-3xl text-[#ff5a2e]">
+          {/* Stats */}
+          <div className="flex flex-wrap gap-9">
+            {STATS.map((stat) => (
+              <div key={stat.label} className="flex flex-col">
+                <span className="font-display font-extrabold text-[34px] text-ember leading-none">
                   {stat.value}
-                </p>
-                <p className="mt-1 max-w-[140px] text-xs leading-tight text-gray-400 uppercase">
+                </span>
+                <span className="text-[12px] uppercase tracking-[0.5px] text-cream/60 mt-1.5 max-w-[110px]">
                   {stat.label}
-                </p>
+                </span>
               </div>
             ))}
           </div>
         </div>
 
-        {/* ============ COLUNA DIREITA: IMAGEM ============ */}
-        <div className="relative flex items-center justify-center">
-          {/* Caveira de fundo, decorativa, atrás do esqueleto */}
+        {/* Athlete art */}
+        <div className="relative flex justify-center order-first md:order-last">
           <img
-            src={skullBgImg}
-            alt=""
-            aria-hidden="true"
-            className="hidden md:block absolute left-80 w-800 h-200 opacity-10"
+            src={skullAthlete}
+            alt="Mascote Coutinho Team em uniforme de powerlifting"
+            className="relative z-10 max-w-[380px] w-full drop-shadow-[0_20px_50px_rgba(0,0,0,0.6)] transition-transform duration-300 hover:scale-102"
           />
-          {/* Esqueleto principal, por cima */}
-          <div className="hero-art">
-            <img
-              src={skeletonImg}
-              alt="Atleta esqueleto Coutinho Team"
-              className="hero-art  hero-art-img"
-            />
-            <div className="hero-art-glow"></div>
-          </div>
+          <div
+            aria-hidden="true"
+            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 pointer-events-none z-0"
+            style={{ background: 'radial-gradient(circle, rgba(255, 90, 46, 0.25) 0%, transparent 70%)' }}
+          />
         </div>
       </div>
     </section>
   );
-};
-
-export default Hero;
+}

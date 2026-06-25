@@ -1,113 +1,101 @@
-import React, { useState } from "react";
-import badgetLogo from "../../assets/badge-logo-final.png";
+import { useState } from 'react';
+import { ButtonLink } from './Button';
+import badgeLogo from '../../assets/badge-logo-final.png';
 
-type NavbarProps = {
-  children: React.ReactNode;
-};
+const NAV_LINKS = [
+  { label: 'Sobre', href: '#sobre' },
+  { label: 'Benefícios', href: '#beneficios' },
+  { label: 'Equipe', href: '#equipe' },
+  { label: 'Atletas', href: '#atletas' },
+  { label: 'Planos', href: '#planos' },
+] as const;
 
-// Lista de links do menu. Pra adicionar/remover um item, só edita esse array.
-const navigation = [
-  { name: "Sobre", href: "#sobre" },
-  { name: "Benefícios", href: "#beneficios" },
-  { name: "Equipe", href: "#equipe" },
-  { name: "Atletas", href: "#atletas" },
-  { name: "Planos", href: "#planos" },
-];
-
-const Navbar = (props: NavbarProps) => {
-  // Controla se o menu mobile (hambúrguer) está aberto ou fechado
-  const [menuOpen, setMenuOpen] = useState(false);
+export default function Navbar() {
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <>
-      <nav className="relative bg-black">
-        {/* Container central: limita a largura máxima e centraliza na tela */}
-        <div className=" flex h-20 w-full items-center justify-between px-6 md:px-12">
-          {/* ---------- BLOCO 1: LOGO (esquerda) ---------- */}
-          <div className="flex items-center gap-2">
-            <img src={badgetLogo} alt="Coutinho Team" className="h-9 w-auto" />
-            <span className="font-['Anton','Archivo_Black',sans-serif] text-lg tracking-wide text-[#f3f1ec] font-bold ">
-              COUTINHO<span className="text-[#ff5a2e] font-semibold">TEAM</span>
-            </span>
-          </div>
+    <header className="sticky top-0 z-50 bg-base/85 backdrop-blur-md border-b border-bone/12">
+      <nav className="max-w-[1180px] mx-auto px-6 flex items-center justify-between py-3.5 gap-5">
+        {/* Brand */}
+        <a href="#topo" className="flex items-center gap-2.5 shrink-0">
+          <img
+            src={badgeLogo}
+            alt="Coutinho Team Powerlifting"
+            className="w-11 h-11 object-contain rounded-full"
+          />
+          <span className="font-display text-[22px] tracking-tighter text-cream font-bold">
+            COUTINHO<span className="text-ember ml-1">TEAM</span>
+          </span>
+        </a>
 
-          {/* ---------- BLOCO 2: MENU (centro, só aparece em telas médias+) ---------- */}
-          <div className="hidden items-center gap-8 md:flex">
-            {navigation.map((item) => (
+        {/* Desktop nav links */}
+        <ul className="hidden md:flex items-center gap-7 flex-1 justify-center list-none m-0 p-0">
+          {NAV_LINKS.map((link) => (
+            <li key={link.href}>
               <a
-                key={item.name}
-                href={item.href}
-                className="text-sm font-bold tracking-wide text-white uppercase transition-colors hover:text-[#ff5a2e]"
+                href={link.href}
+                className="text-[14px] font-bold uppercase tracking-[0.5px] text-cream hover:text-ember transition-colors duration-150"
               >
-                {item.name}
+                {link.label}
               </a>
-            ))}
-          </div>
+            </li>
+          ))}
+        </ul>
 
-          {/* ---------- BLOCO 3: BOTÃO CTA (direita, só aparece em telas médias+) ---------- */}
-          <a
+        {/* Desktop CTA */}
+        <div className="hidden md:inline-flex shrink-0">
+          <ButtonLink
             href="#planos"
-            className="hidden items-center justify-center rounded-md bg-[#ff5a2e] px-7 py-3 text-sm font-bold tracking-wide text-[#160a05] uppercase transition-transform hover:-translate-y-0.5 md:inline-flex"
+            variant="ember"
+            className="w-full font-semibold text-white"
           >
             Comece agora
-          </a>
-
-          {/* ---------- BOTÃO HAMBÚRGUER (só aparece em telas pequenas) ---------- */}
-          <button
-            onClick={() => setMenuOpen(!menuOpen)}
-            className="text-white md:hidden"
-            aria-label="Abrir menu"
-          >
-            {menuOpen ? (
-              // ícone "X" (fechar)
-              <svg className="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M6 18L18 6M6 6l12 12"
-                />
-              </svg>
-            ) : (
-              // ícone hambúrguer (3 linhas)
-              <svg className="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M4 6h16M4 12h16M4 18h16"
-                />
-              </svg>
-            )}
-          </button>
+          </ButtonLink>
         </div>
 
-        {/* ---------- MENU MOBILE (aparece embaixo, só quando aberto) ---------- */}
-        {menuOpen && (
-          <div className="space-y-1 px-6 pb-4 md:hidden">
-            {navigation.map((item) => (
-              <a
-                key={item.name}
-                href={item.href}
-                onClick={() => setMenuOpen(false)}
-                className="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-white/5 hover:text-white"
-              >
-                {item.name}
-              </a>
-            ))}
-            <a
-              href="#planos"
-              onClick={() => setMenuOpen(false)}
-              className="mt-2 block rounded-md bg-[#ff5a2e] px-4 py-3 text-center text-sm font-bold tracking-wide text-[#160a05] uppercase"
-            >
-              Comece agora
-            </a>
-          </div>
-        )}
+        {/* Mobile hamburger toggle */}
+        <button
+          type="button"
+          onClick={() => setIsOpen((prev) => !prev)}
+          aria-label={isOpen ? 'Fechar menu' : 'Abrir menu'}
+          aria-expanded={isOpen}
+          className="md:hidden flex items-center justify-center w-9 h-9 bg-transparent border-none cursor-pointer shrink-0 p-0 text-cream"
+        >
+          {isOpen ? (
+            <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          ) : (
+            <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          )}
+        </button>
       </nav>
-      {props.children}
-    </>
-  );
-};
 
-export default Navbar;
+      {/* Mobile dropdown menu */}
+      {isOpen && (
+        <div className="md:hidden bg-elevated border-b border-bone/12 px-6 py-5 flex flex-col gap-4">
+          {NAV_LINKS.map((link) => (
+            <a
+              key={link.href}
+              href={link.href}
+              onClick={() => setIsOpen(false)}
+              className="text-[14px] font-bold uppercase tracking-[0.5px] text-cream hover:text-ember transition-colors duration-150"
+            >
+              {link.label}
+            </a>
+          ))}
+          <ButtonLink
+            href="#planos"
+            variant="ember"
+            className="mt-2 w-full justify-center"
+            onClick={() => setIsOpen(false)}
+          >
+            Comece agora
+          </ButtonLink>
+        </div>
+      )}
+    </header>
+  );
+}
