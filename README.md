@@ -54,11 +54,13 @@ my-react-ts-app/
 ├── src/                            # Main source code directory
 │   ├── assets/                     # Global static media (images, global SVGs, fonts)
 │   │   └── images/     
-│   ├── components/                 # Shared, global UI building blocks (design system)
-│   │   └── Button/
-│   │       ├── Button.tsx
-│   │       ├── Button.test.tsx
-│   │       └── index.ts            # Barrel export for clean imports
+│   ├── components/                 # Folder for components
+│   │       │── ui/                 # Shared, global UI building blocks (design system)
+│   │       │   └── Card.tsx
+│   │       └── Button/             # Specific component
+│   │           ├── Button.tsx          # Components
+│   │           ├── Button.test.tsx     # Tests for this components
+│   │           └── index.ts            # Barrel export for clean imports
 │   ├── config/                     # Environment variables and global constants
 │   ├── context/                    # App-wide global React Context providers
 │   ├── features/                   # Feature-based modules (Domain Driven)

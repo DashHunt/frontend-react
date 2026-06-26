@@ -1,10 +1,9 @@
-import { StatCard } from './ui/StatCard';
+import { Card } from './ui/Card';
 import skullThinking from '../assets/skull-thinking.png';
 
 const STATS = [
   { value: '+00', label: 'Medalhas nacionais' },
   { value: '+00', label: 'Medalhas estaduais' },
-  { value: '+00', label: 'Alunos ativos' },
 ] as const;
 
 export default function Sobre() {
@@ -31,9 +30,12 @@ export default function Sobre() {
             o corpo responde.
           </p>
 
-          <div className="flex flex-wrap gap-4 mt-9">
-            {STATS.map((stat) => (
-              <StatCard key={stat.label} value={stat.value} label={stat.label}/>
+          <div className="flex gap-4 mt-9">
+            {STATS.map((s) => (
+              <Card key={s.label} variant="elevated" padding="sm" rounded="md" className="transition-transform duration-300 hover:scale-110 min-w-[120px]">
+                <span className="block font-display font-extrabold text-[30px] text-ember leading-none">{s.value}</span>
+                <span className="block text-[12px] text-cream/65 uppercase tracking-[0.4px] mt-1.5">{s.label}</span>
+              </Card>
             ))}
           </div>
         </div>

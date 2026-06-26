@@ -1,4 +1,4 @@
-import { BenefitCard } from './ui/BenefitCard';
+import { Card } from './ui/Card';
 
 const BENEFITS = [
   {
@@ -53,13 +53,12 @@ export default function Beneficios() {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-[22px]">
-          {BENEFITS.map((benefit) => (
-            <BenefitCard
-              key={benefit.title}
-              icon={benefit.icon}
-              title={benefit.title}
-              description={benefit.description}
-            />
+          {BENEFITS.map((b) => (
+            <Card key={b.title} variant="base" hover="lift" padding="lg" rounded="lg" className="hover:border-ember-deep">
+              <div className="text-[30px] mb-4">{b.icon}</div>
+              <h3 className="text-[18px] mb-2.5 tracking-[0.3px]">{b.title}</h3>
+              <p className="text-[14.5px] text-cream/70 m-0">{b.description}</p>
+            </Card>
           ))}
         </div>
       </div>

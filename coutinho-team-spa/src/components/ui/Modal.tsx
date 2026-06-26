@@ -1,26 +1,25 @@
-import { useEffect } from 'react';
-import LeadForm from '../LeadForm';
+import { useEffect } from "react";
 
 interface ModalProps {
   isOpen: boolean;
-  selectedPlan: string;
   onClose: () => void;
+  children: React.ReactNode;
 }
 
-export function Modal({ isOpen, selectedPlan, onClose }: ModalProps) {
+export function Modal({ isOpen, onClose, children }: ModalProps) {
   useEffect(() => {
     if (!isOpen) return;
 
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') onClose();
+      if (e.key === "Escape") onClose();
     };
 
-    document.addEventListener('keydown', handleKeyDown);
-    document.body.style.overflow = 'hidden';
+    document.addEventListener("keydown", handleKeyDown);
+    document.body.style.overflow = "hidden";
 
     return () => {
-      document.removeEventListener('keydown', handleKeyDown);
-      document.body.style.overflow = '';
+      document.removeEventListener("keydown", handleKeyDown);
+      document.body.style.overflow = "";
     };
   }, [isOpen, onClose]);
 
@@ -45,13 +44,7 @@ export function Modal({ isOpen, selectedPlan, onClose }: ModalProps) {
         >
           &times;
         </button>
-
-        <h3 className="text-[22px] mb-2.5">Faça seu cadastro</h3>
-        <p className="text-[13.5px] text-cream/70 mb-5">
-          Vamos dar início à sua jornada no Powerlifting. Preencha os campos abaixo:
-        </p>
-
-        <LeadForm selectedPlan={selectedPlan} onSuccess={onClose} />
+        {children}
       </div>
     </div>
   );

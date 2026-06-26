@@ -16,8 +16,7 @@ export default function Navbar() {
   return (
     <header className="sticky top-0 z-50 bg-base/85 backdrop-blur-md border-b border-bone/12">
       <nav className="max-w-[1180px] mx-auto px-6 flex items-center justify-between py-3.5 gap-5">
-        {/* Brand */}
-        <a href="#topo" className="flex items-center gap-2.5 shrink-0">
+        <a href="#topo" className="flex items-center gap-2.5 shrink-0 transition-transform duration-300 hover:scale-110">
           <img
             src={badgeLogo}
             alt="Coutinho Team Powerlifting"

@@ -4,6 +4,62 @@ Reusable, domain-agnostic building blocks. No business logic or hardcoded conten
 
 ---
 
+## CarouselComponent
+
+**File:** `Carousel.tsx`
+
+Carrossel scroll-snap nativo (sem biblioteca externa). Mostra um card centralizado com peek de ~10% dos cards adjacentes em cada lado. Suporta swipe tátil e navegação por setas/dots.
+
+| Prop | Type | Default | Description |
+|---|---|---|---|
+| `children` | `ReactNode` | — | Cards ou slides (qualquer ReactNode) |
+| `initialIndex` | `number` | `0` | Índice do card a exibir no mount (sem animação) |
+
+```tsx
+<CarouselComponent initialIndex={PLANOS.findIndex(p => p.featured)}>
+  {PLANOS.map(p => <Card key={p.id}>...</Card>)}
+</CarouselComponent>
+```
+
+**Como funciona o peek:** container com `px-[10%]` + cada slide com `w-[80%]` → os 10% de cada lado expõem os cards vizinhos.
+
+---
+
+## Card
+
+**File:** `Card.tsx`
+
+Base container for all card-style UI blocks. Used directly by section components — there are no named card wrappers (BenefitCard, TeamCard, etc.).
+
+| Prop | Type | Default | Description |
+|---|---|---|---|
+| `variant` | `'base' \| 'elevated' \| 'raised'` | `'base'` | Background token |
+| `hover` | `'scale' \| 'lift' \| 'border' \| 'none'` | `'none'` | Hover effect |
+| `padding` | `'sm' \| 'md' \| 'lg' \| 'none'` | `'md'` | Internal padding preset — use `'none'` + `className` for custom values |
+| `rounded` | `'md' \| 'lg'` | `'lg'` | Border radius — `md`=10px, `lg`=14px |
+| `featured` | `boolean` | `false` | Ember border + glow shadow + slight upward translate (used by the featured plan in `Planos`) |
+| `className` | `string` | — | Extra classes appended last (escape hatch) |
+| `children` | `ReactNode` | — | Card content |
+
+**Padding presets:** `sm`=`px-5 py-4` · `md`=`px-6 py-7` · `lg`=`px-[26px] py-[30px]`
+
+**Hover presets:**
+- `scale` → `transition-transform duration-300 hover:scale-102`
+- `lift` → `transition-all duration-200 hover:-translate-y-1`
+- `border` → `transition-all duration-200 hover:border-ember-deep`
+
+```tsx
+<Card variant="elevated" hover="scale" padding="md" rounded="lg">
+  ...content...
+</Card>
+
+<Card variant="base" featured padding="md" rounded="lg" className="relative flex flex-col">
+  ...featured plan content...
+</Card>
+```
+
+---
+
 ## Button / ButtonLink
 
 **File:** `Button.tsx`
@@ -34,99 +90,6 @@ Two exports sharing identical visual styles. `Button` renders a `<button>`, `But
 <ButtonLink href="#planos" variant="ghost" size="lg">Ver planos</ButtonLink>
 <Button variant="outline-ember" onClick={handler}>Escolher plano</Button>
 ```
-
----
-
-## StatCard
-
-**File:** `StatCard.tsx`
-
-Displays a large numeric stat with a label below it. Used in the `Sobre` section.
-
-| Prop | Type | Description |
-|---|---|---|
-| `value` | `string` | Number or text value (e.g. `"+42"`) |
-| `label` | `string` | Metric description |
-
----
-
-## BenefitCard
-
-**File:** `BenefitCard.tsx`
-
-Card with an emoji icon, title, and description. Lifts slightly on hover.
-
-| Prop | Type | Description |
-|---|---|---|
-| `icon` | `string` | Emoji representing the benefit |
-| `title` | `string` | Short title |
-| `description` | `string` | Detailed description |
-
----
-
-## TeamCard
-
-**File:** `TeamCard.tsx`
-
-Coach card with initials avatar, name, role, bio, and Instagram link.
-
-| Prop | Type | Default | Description |
-|---|---|---|---|
-| `initials` | `string` | — | Avatar initials (e.g. `"CT"`) |
-| `name` | `string` | — | Full name |
-| `role` | `string` | — | Role/specialty |
-| `bio` | `string` | — | Short bio |
-| `instagram` | `string` | — | Instagram handle (e.g. `"@treinador"`) |
-| `instagramHref` | `string` | `"#"` | Profile URL |
-
----
-
-## AthleteCard
-
-**File:** `AthleteCard.tsx`
-
-Athlete card with initial avatar, name, and a bordered list of achievements.
-
-| Prop | Type | Description |
-|---|---|---|
-| `initial` | `string` | Avatar initial (e.g. `"A"`) |
-| `name` | `string` | Athlete name |
-| `achievements` | `readonly { label: string }[]` | Achievement list (accepts both mutable and readonly arrays) |
-
----
-
-## TestimonialCard
-
-**File:** `TestimonialCard.tsx`
-
-Testimonial card with avatar initial, student name, category tag, and an italic quote.
-
-| Prop | Type | Description |
-|---|---|---|
-| `initial` | `string` | Avatar initial |
-| `name` | `string` | Student name |
-| `tag` | `string` | Category or profile (e.g. `"Sub-23 / 74kg"`) |
-| `quote` | `string` | Testimonial text — rendered in italic, no quotes needed |
-
----
-
-## PlanoCard
-
-**File:** `PlanoCard.tsx`
-
-Pricing plan card. The `featured` variant is elevated with ember border and glow shadow.
-
-| Prop | Type | Default | Description |
-|---|---|---|---|
-| `title` | `string` | — | Plan name |
-| `tag` | `string` | — | Discount badge (e.g. `"7% OFF"`) |
-| `pricePrefix` | `string` | — | Before price (e.g. `"3x"`) |
-| `price` | `string` | — | Main price value (e.g. `"R$ 197"`) |
-| `priceSuffix` | `string` | — | After price (e.g. `"/mês"`) |
-| `note` | `string` | — | Note below the price |
-| `badge` | `string` | — | Floating label (e.g. `"Mais vendido"`) |
-| `featured` | `boolean` | `false` | Highlighted style with ember border |
-| `onSelect` | `(plan: string) => void` | — | Called with `title` when user clicks "Escolher plano" |
 
 ---
 

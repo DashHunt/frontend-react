@@ -1,12 +1,14 @@
-import { AthleteCard } from './ui/AthleteCard';
+import { Card } from './ui/Card';
 import { ButtonLink } from './ui/Button';
 
 interface Athlete {
   initial: string;
   name: string;
   achievements: { label: string }[];
+  imageUrl: string;
 }
 
+// TODO: Call from an api to get Athletes
 const ATHLETES: Athlete[] = [
   {
     initial: 'A',
@@ -15,6 +17,7 @@ const ATHLETES: Athlete[] = [
       { label: 'Conquista ou título principal' },
       { label: 'Categoria de peso / divisão' },
     ],
+    imageUrl: 'skull-thinking.png'
   },
   {
     initial: 'A',
@@ -23,6 +26,7 @@ const ATHLETES: Athlete[] = [
       { label: 'Conquista ou título principal' },
       { label: 'Categoria de peso / divisão' },
     ],
+    imageUrl: 'skull-thinking.png'
   },
   {
     initial: 'A',
@@ -31,16 +35,21 @@ const ATHLETES: Athlete[] = [
       { label: 'Conquista ou título principal' },
       { label: 'Categoria de peso / divisão' },
     ],
+    imageUrl: 'skull-thinking.png'
   },
 ];
 
+const getImageUrl = (name: string) => {
+  return new URL(`../assets/${name}`, import.meta.url).href;
+};
+
 export default function Atletas() {
   return (
-    <section id="atletas" className="py-[90px] bg-elevated border-t border-b border-bone/12">
+    <section id="atletas" className="bg-black py-[90px] border-t border-b border-bone/12">
       <div className="max-w-[1180px] mx-auto px-6 grid grid-cols-1 md:grid-cols-[1fr_1.1fr] gap-[60px] items-center">
-        {/* Copy */}
+
         <div>
-          <p className="font-body text-[13px] font-bold uppercase tracking-[2.5px] text-ember mb-3">
+          <p className=" font-body text-[13px] font-bold uppercase tracking-[2.5px] text-ember mb-3">
             Resultados na prática
           </p>
           <h2 className="font-display text-[clamp(28px,4vw,42px)] leading-[1.15] mb-[18px]">
@@ -55,15 +64,21 @@ export default function Atletas() {
           </ButtonLink>
         </div>
 
-        {/* Athletes grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-[18px]">
-          {ATHLETES.map((athlete, index) => (
-            <AthleteCard
-              key={index}
-              initial={athlete.initial}
-              name={athlete.name}
-              achievements={athlete.achievements}
-            />
+        <div className=" grid grid-cols-1 sm:grid-cols-3 gap-[18px]">
+          {ATHLETES.map((a, index) => (
+            <Card key={index} variant="base" rounded="lg" padding="none" className="p-[22px]" hover='lift'>
+              <div className="w-full h-[140px] rounded-[10px] bg-[linear-gradient(145deg,#232019,#0d0c0a)] flex items-center justify-center font-display text-[30px] text-ember mb-4 border border-bone/12">
+                <img src={getImageUrl(a.imageUrl)} alt="" />
+              </div>
+              <h3 className="text-[16px] mb-2">{a.name}</h3>
+              <ul className="list-none p-0 m-0 space-y-1">
+                {a.achievements.map((ach, i) => (
+                  <li key={i} className="text-[13px] text-cream/70 py-1 pl-4 border-l-2 border-ember-deep">
+                    {ach.label}
+                  </li>
+                ))}
+              </ul>
+            </Card>
           ))}
         </div>
       </div>

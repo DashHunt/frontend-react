@@ -48,16 +48,11 @@ Base `h1–h6` use `font-display` + `uppercase` from `@layer base`. Override wit
 src/
 ├── assets/              # Static images (logos, mascots)
 ├── components/
-│   ├── ui/              # Reusable primitives (Button, Navbar, Cards, Modal)
+│   ├── ui/              # Reusable primitives (Button, Card, Navbar, Modal)
 │   │   ├── CLAUDE.md    # UI primitives documentation
+│   │   ├── Card.tsx     # Base card container — used directly by section components
 │   │   ├── Button.tsx
 │   │   ├── Navbar.tsx
-│   │   ├── StatCard.tsx
-│   │   ├── BenefitCard.tsx
-│   │   ├── TeamCard.tsx
-│   │   ├── AthleteCard.tsx
-│   │   ├── TestimonialCard.tsx
-│   │   ├── PlanoCard.tsx
 │   │   └── Modal.tsx
 │   ├── CLAUDE.md        # Section components documentation
 │   ├── Hero.tsx

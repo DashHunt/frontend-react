@@ -19,7 +19,7 @@ export default function Hero() {
         <img className='hidden md:inline-flex'src={logoskull} alt="" />
       </div>
 
-      <div className="relative z-10 max-w-[1180px] mx-auto px-6 grid grid-cols-1 md:grid-cols-[1.1fr_0.9fr] gap-[50px] items-center">
+      <div className="relative z-10 max-w-[1280px] mx-auto px-6 grid grid-cols-1 md:grid-cols-[1.1fr_0.9fr] gap-[50px] items-center">
         {/* Copy */}
         <div>
           <p className="font-body text-[13px] font-bold uppercase tracking-[2.5px] text-ember mb-3">
@@ -37,11 +37,11 @@ export default function Hero() {
             primeiro treino ao pódio.
           </p>
 
-          <div className="flex flex-wrap gap-4 mb-[50px]">
-            <ButtonLink href="#planos" variant="ember" size="lg">
+          <div className="flex flex-wrap gap-4 mb-[50px] max-sm:justify-center  md:flex gap-4 mb-[50px]">
+            <ButtonLink href="#planos" variant="ember" size="lg" className='w-75'>
               Quero entrar para o time
             </ButtonLink>
-            <ButtonLink href="#sobre" variant="ghost" size="lg" className='border-solid border-white'>
+            <ButtonLink href="#sobre" variant="ghost" size="lg" className='w-75 border-solid border-white'>
               Conhecer a equipe
             </ButtonLink>
           </div>
